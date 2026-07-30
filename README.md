@@ -1,2 +1,4 @@
 # pizza-on-mondays
-Proyecto de aula, que busca luchar contra el hambre en poblaciones Universitarias (ie el profe)
+
+
+Proyecto de aula, que busca explicar a los estudiantes acerca de opciones financieras, mercado de capitales y programació
