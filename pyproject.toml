@@ -1,0 +1,17 @@
+[project]
+name = "pizza-on-mondays"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "claseudem", email = "164520182+claseudem@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+pizza-on-mondays = "pizza_on_mondays:main"
+
+[build-system]
+requires = ["uv_build>=0.12.2,<0.13.0"]
+build-backend = "uv_build"
