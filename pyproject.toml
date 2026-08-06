@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "dukascopy-python>=4.0.1",
     "yfinance>=1.5.2",
 ]
 
