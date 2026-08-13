@@ -1,10 +1,15 @@
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
  
-st.write("""# My first app Hello *world!* """)
-st.write("""# Mi primera app en python """)
+# Configurar página
+st.set_page_config(page_title="Análisis de Acciones", layout="wide")
 
+# Título principal
+st.markdown("# 📈 Análisis de Acciones")
+st.markdown("Bienvenido a tu dashboard de monitoreo de acciones")
 
-# TODO: Arreglar los datos de la app
-#df = pd.read_csv("my_data.csv")
-#st.line_chart(df)
+# Cargar datos
+df = pd.read_excel("/workspaces/pizza-on-mondays/src/data/datos.xlsx")
+
+st.dataframe(df)
