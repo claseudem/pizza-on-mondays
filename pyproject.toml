@@ -8,7 +8,10 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "dukascopy-python>=4.0.1",
+    "openpyxl>=3.1.5",
     "streamlit>=1.61.1",
+    "yfinance>=1.5.2",
 ]
 
 [project.scripts]
