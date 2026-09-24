@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "prefect>=3.8.4",
+    "quantstats>=0.0.81",
     "seaborn>=0.13.2",
     "streamlit>=1.63.0",
     "yfinance>=1.7.0",
