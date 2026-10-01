@@ -26,6 +26,7 @@ Lo principal:
 - **Recomendación automática**: una lectura en texto plano de esas métricas, generada en cada corrida.
 - **Simulación de payoff**: proyectá un capital inicial sobre cada activo y sobre una cartera equiponderada.
 - **Datos en vivo**: precios descargados de Yahoo Finance vía [yfinance](https://github.com/ranaroussi/yfinance), sin datasets estáticos.
+- **Retornos esperados (CAPM)** 🎯 (página aparte): beta y retorno esperado anual de cada activo vía [PyPortfolioOpt](https://pyportfolioopt.readthedocs.io/), eligiendo sector y año con botones, y con la tasa libre de riesgo real del T-Bill a 13 semanas (`^IRX`).
 - **Descriptor de empresas** 🔎 (página aparte): ingresando un ticker, arma una descripción de la empresa a partir de sus fundamentals (perfil, valoración, rentabilidad, deuda, dividendos y estados financieros).
 
 > ⚠️ Todo lo que muestra la app es una lectura descriptiva de datos históricos, no asesoramiento financiero.
@@ -130,6 +131,21 @@ st.markdown(build_company_description(info))
 ```
 
 **En la app:** en la barra lateral aparece *🔎 Descriptor de empresas*. Al ingresar un ticker muestra una descripción en viñetas (tamaño, valoración, rentabilidad, salud financiera, dividendos, beta y consenso de analistas), 8 métricas clave, la descripción del negocio y los estados financieros anuales. Si el ticker no existe, muestra un aviso; para criptos/ETFs, solo el perfil básico.
+
+### 10. Retornos esperados (CAPM) (página aparte)
+
+Vive en [`pages/4_🎯_CAPM.py`](src/pizza_on_mondays/pages/4_🎯_CAPM.py), con la lógica en [`capm.py`](src/pizza_on_mondays/capm.py).
+
+```python
+start, end = capm_period(year)  # ej. 2020 -> ("2020-01-01", "2021-01-01")
+prices, market_prices, risk_free = load_prices_with_market(SECTORS[sector]["stocks"], "SPY", start, end)
+for ticker in prices.columns:
+    asset = prices[[ticker]].dropna()
+    expected = capm_return(asset, market_prices=market_prices.loc[asset.index],
+                           risk_free_rate=risk_free.loc[asset.index].mean(), frequency=252)
+```
+
+**En la app:** botones de **Sector** y **Año** (o *Todos*, desde 2020 hasta hoy), un selector del proxy del mercado (SPY, QQQ, DIA o IWM), la tasa libre de riesgo al cierre del período y una tabla con la beta, el *Retorno esperado anual (CAPM)*, la tasa libre de riesgo usada y la fecha desde la que hay datos de cada activo. La tasa libre de riesgo es el promedio de `^IRX` (T-Bill a 13 semanas) en el período de cada activo, anual como el retorno de mercado. Cada activo se estima sobre su propio período, para que los que salieron a bolsa más tarde, como PECO, no tengan una beta sesgada.
 
 ## Rendimiento
 

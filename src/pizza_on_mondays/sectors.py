@@ -9,7 +9,7 @@ SECTORS = {
             "ADC", "AKR", "BRX", "EPRT", "FCPT", "KIM", "KRG", "MAC", "NNN",
             "O", "PECO", "REG", "UE",
         ],
-        "start": "2026-01-01",
+        "start": "2020-01-01",
         "end": "2026-12-31",
     },
     "Criptomonedas": {
