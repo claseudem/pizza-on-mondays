@@ -110,7 +110,7 @@ def build_recommendation(summary: pd.DataFrame, momentum_window: int = 21) -> st
 
 
 def sectors_page() -> None:
-    colored_title("🍕 Pizza on Mondays")
+    colored_title("🍕 MoaInvest")
 
     sector_name = st.selectbox(
         "Sector",
@@ -179,7 +179,7 @@ def sectors_page() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Pizza on Mondays", page_icon="🍕", layout="wide")
+    st.set_page_config(page_title="MoaInvest", page_icon="🍕", layout="wide")
     sectors_page()
 
 

@@ -2,7 +2,7 @@
   <a href="https://pizzaonmondays.streamlit.app/"><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" alt="Open in Streamlit"></a>
 </p>
 <p align="center">
-  <em>🍕 Pizza on Mondays — dashboard de retornos, riesgo y simulación de cartera por sector</em>
+  <em>🍕 MoaInvest — dashboard de retornos, riesgo y simulación de cartera por sector</em>
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.12%2B-blue" alt="Python 3.12+">
@@ -17,7 +17,7 @@
 
 ---
 
-**Pizza on Mondays** es un dashboard interactivo en Streamlit para explorar el comportamiento histórico de distintos sectores (Oil & Gas, Real Estate, Criptomonedas) y simular una cartera simple sobre ellos, sin salir del navegador.
+**MoaInvest** es un dashboard interactivo en Streamlit para explorar el comportamiento histórico de distintos sectores (Oil & Gas, Real Estate, Criptomonedas) y simular una cartera simple sobre ellos, sin salir del navegador.
 
 Lo principal:
 
