@@ -8,6 +8,7 @@ PAGES = [
     st.Page("pages/1_🏠_Inicio.py", title="Inicio", icon="🏠", default=True),
     st.Page("pages/2_🔎_Descriptor_de_empresas.py", title="Descriptor de empresas", icon="🔎"),
     st.Page("pages/3_📈_QuantStats_vs_Benchmark.py", title="QuantStats vs Benchmark", icon="📈"),
+    st.Page("pages/4_🎯_CAPM.py", title="Retornos esperados (CAPM)", icon="🎯"),
 ]
 
 

@@ -6,8 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **MoaInvest** (antes "Pizza on Mondays"): dashboard en Streamlit para explorar el comportamiento histórico de
 distintos sectores de mercado (Oil & Gas, Real Estate, Criptomonedas), armar fichas de
-empresas individuales a partir de fundamentals, y comparar un activo contra un benchmark
-con tearsheets de QuantStats. Datos en vivo vía `yfinance`, sin datasets estáticos.
+empresas individuales a partir de fundamentals, comparar un activo contra un benchmark
+con tearsheets de QuantStats, y estimar retornos esperados por CAPM con PyPortfolioOpt. Datos en vivo vía `yfinance`, sin datasets estáticos.
 App en vivo: https://pizzaonmondays.streamlit.app/
 
 ## Comandos
@@ -30,7 +30,7 @@ Streamlit multi-page app con navegación explícita (`st.navigation` + `st.Page`
 moderna de Streamlit ≥1.36). El entrypoint `src/pizza_on_mondays/app.py` **no tiene
 lógica de negocio ni UI propia**: solo define `PAGES` y llama a
 `st.navigation(PAGES).run()`. Por eso en el sidebar solo aparecen las páginas (Inicio,
-Descriptor de empresas, QuantStats vs Benchmark) con sus títulos explícitos — no hay una
+Descriptor de empresas, QuantStats vs Benchmark, Retornos esperados (CAPM)) con sus títulos explícitos — no hay una
 entrada separada "app" ni depende del nombre de archivo para el label, a diferencia del
 mecanismo clásico de detección automática de `pages/`.
 
@@ -55,12 +55,13 @@ coloreados vía HTML embebido). Cualquier estilo común nuevo va acá, no repeti
 módulo válido para poder importarse desde una página (`pages/2_🔎_...py`,
 `pages/3_📈_...py` no se pueden importar como módulo por el emoji/número en el nombre).
 La página de QuantStats lo reimporta (`from sectors import SECTORS`) para poblar el
-selector de "activo a analizar" con todos los tickers conocidos por la app — mantenerlo
-como la única fuente de esa lista. No hay ya una página de "Sectores" con resumen/
+selector de "activo a analizar" con todos los tickers conocidos por la app, y `capm.py`
+lo usa para los botones de sector y para el primer año disponible (el `start` más
+temprano) — mantenerlo como la única fuente de esa lista. No hay ya una página de "Sectores" con resumen/
 métricas por sector; se eliminó por no aportar valor.
 
 **`pages/1_🏠_Inicio.py`**: landing de bienvenida — una descripción corta de la app y
-links (`st.page_link`) a las otras dos páginas. Sin llamadas a APIs externas ni cómputo,
+links (`st.page_link`) a las otras tres páginas. Sin llamadas a APIs externas ni cómputo,
 para que cargue instantáneo.
 
 **`descriptor.py`** (consumido por `pages/2_🔎_Descriptor_de_empresas.py`): dado un
@@ -79,7 +80,21 @@ output=path)`), se lee como string y se destruye el archivo en un `finally` —
 `quantstats` solo sabe escribir a disco, no devolver el HTML directamente. El resultado
 cacheado (`@st.cache_data`) es el string, no el archivo.
 
-**Por qué `descriptor.py` y `quantstats_report.py` existen separados de sus páginas**:
+**`capm.py`** (consumido por `pages/4_🎯_CAPM.py`): retorno esperado anual por activo
+con `pypfopt.expected_returns.capm_return`. Detalles que no hay que romper:
+- `load_prices_with_market` baja activos + proxy del mercado + `^IRX` en una sola llamada,
+  se queda solo con los días en que cotiza el mercado (las cripto cotizan 7 días) y hace
+  `ffill` pero **no** `bfill` (no inventar precios antes de que un activo existiera).
+  `^IRX` viene en %, se devuelve en decimales.
+- `build_capm_expected_returns` llama a `capm_return` **por activo**, con el mercado y la
+  tasa libre de riesgo recortados a la ventana de ese activo. Una sola llamada con todos
+  sesga la beta de los que empezaron a cotizar más tarde (PECO).
+- Todo es anual: precios diarios + `frequency=252` y `risk_free_rate` anual (promedio de
+  `^IRX` en la ventana). Si se cambia `frequency`, la tasa tiene que acompañar.
+- `capm_period` devuelve un fin exclusivo (1 de enero del año siguiente) porque
+  yfinance excluye `end`.
+
+**Por qué `descriptor.py`, `quantstats_report.py` y `capm.py` existen separados de sus páginas**:
 igual que `sectors.py`, es para poder testear la lógica pura (formateo, armado de texto,
 cálculo de retornos) con pytest importando el módulo directamente, sin pasar por un
 archivo de `pages/` que no es importable por el emoji/número en el nombre y sin levantar
@@ -89,7 +104,9 @@ se testean mockeando `yfinance`, no pegándole a la API real.
 ## Tests
 
 `tests/` espeja los módulos de `src/pizza_on_mondays/` (`test_sectors.py`, `test_ui.py`,
-`test_descriptor.py`, `test_quantstats_report.py`). `pyproject.toml` agrega
+`test_descriptor.py`, `test_quantstats_report.py`, `test_capm.py`). Los tests del CAPM
+usan series sintéticas con beta conocida (un activo = k × retornos del mercado) para
+verificar la fórmula sin depender de la red. `pyproject.toml` agrega
 `src/pizza_on_mondays` a `pythonpath` para que los tests puedan hacer los mismos imports
 planos que el código de la app (`from sectors import SECTORS`, no
 `from pizza_on_mondays.sectors import SECTORS`). Las llamadas a `yfinance` se mockean con
