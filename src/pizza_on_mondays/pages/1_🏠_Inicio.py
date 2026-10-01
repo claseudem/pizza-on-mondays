@@ -4,7 +4,7 @@ from ui import colored_title
 
 
 def home_page() -> None:
-    colored_title("🍕 Pizza on Mondays")
+    colored_title("MoaInvest")
     st.markdown(
         "Bienvenida/o. Este es un dashboard para explorar activos financieros con "
         "datos en vivo de [Yahoo Finance](https://finance.yahoo.com/), sin datasets "

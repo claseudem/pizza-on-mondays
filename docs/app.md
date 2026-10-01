@@ -1,4 +1,4 @@
-# Pizza on Mondays — documentación de la app
+# MoaInvest — documentación de la app
 
 Dashboard en Streamlit para armar fichas de empresas individuales y comparar un activo
 contra un benchmark. Todos los precios se descargan en vivo de Yahoo Finance vía
