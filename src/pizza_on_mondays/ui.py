@@ -1,7 +1,10 @@
+from pathlib import Path
+
 import streamlit as st
 
 
 TITLE_COLOR = "#87CEFA"  # azul claro
+ICON_PATH = Path(__file__).parent / "assets" / "moai_icon.png"
 
 
 def colored_title(text: str) -> None:

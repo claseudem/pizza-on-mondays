@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 import yfinance as yf
 
-from ui import colored_title
+from ui import ICON_PATH, colored_title
 
 
 @st.cache_data(ttl=3600)
@@ -177,7 +177,7 @@ def render_company_descriptor() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Descriptor de empresas", page_icon="🔎", layout="wide")
+    st.set_page_config(page_title="Descriptor de empresas", page_icon=str(ICON_PATH), layout="wide")
     render_company_descriptor()
 
 

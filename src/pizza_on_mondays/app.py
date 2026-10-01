@@ -3,7 +3,7 @@ import seaborn as sns
 import streamlit as st
 import yfinance as yf
 
-from ui import colored_subheader, colored_title
+from ui import ICON_PATH, colored_subheader, colored_title
 
 SECTORS = {
     "Oil & Gas": {
@@ -179,7 +179,7 @@ def sectors_page() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Pizza on Mondays", page_icon="🍕", layout="wide")
+    st.set_page_config(page_title="Pizza on Mondays", page_icon=str(ICON_PATH), layout="wide")
     sectors_page()
 
 

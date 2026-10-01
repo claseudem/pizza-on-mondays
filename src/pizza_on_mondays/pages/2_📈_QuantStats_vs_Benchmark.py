@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 import yfinance as yf
 
 from app import SECTORS
-from ui import colored_title
+from ui import ICON_PATH, colored_title
 
 # ETFs líquidos: se pueden comprar directamente, a diferencia de un índice puro (ej. ^GSPC).
 BENCHMARK_TICKERS = {
@@ -118,7 +118,7 @@ def render_quantstats() -> None:
 
 def main() -> None:
     st.set_page_config(
-        page_title="QuantStats: Activo vs Benchmark", page_icon="📈", layout="wide"
+        page_title="QuantStats: Activo vs Benchmark", page_icon=str(ICON_PATH), layout="wide"
     )
     render_quantstats()
 
