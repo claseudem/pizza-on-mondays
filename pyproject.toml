@@ -1,7 +1,7 @@
 [project]
-name = "pizza-on-mondays"
+name = "moainvest"
 version = "0.1.0"
-description = "Add your description here"
+description = "Dashboard en Streamlit para explorar activos financieros con datos en vivo de Yahoo Finance"
 readme = "README.md"
 authors = [
     { name = "claseudem", email = "164520182+claseudem@users.noreply.github.com" }
@@ -16,11 +16,14 @@ dependencies = [
 ]
 
 [project.scripts]
-pizza-on-mondays = "pizza_on_mondays:main"
+moainvest = "pizza_on_mondays:main"
 
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "pizza_on_mondays"
 
 [dependency-groups]
 dev = [

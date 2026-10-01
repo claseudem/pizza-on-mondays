@@ -1,4 +1,8 @@
+from pathlib import Path
+
 import streamlit as st
+
+ICON_PATH = Path(__file__).parent / "assets" / "moai_icon.png"
 
 PAGES = [
     st.Page("pages/1_🏠_Inicio.py", title="Inicio", icon="🏠", default=True),
@@ -8,7 +12,7 @@ PAGES = [
 
 
 def main() -> None:
-    st.set_page_config(page_title="Pizza on Mondays", page_icon="🍕", layout="wide")
+    st.set_page_config(page_title="MoaInvest", page_icon=str(ICON_PATH), layout="wide")
     st.navigation(PAGES).run()
 
 

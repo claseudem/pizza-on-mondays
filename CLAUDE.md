@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Qué es esto
 
-**Pizza on Mondays**: dashboard en Streamlit para explorar el comportamiento histórico de
+**MoaInvest** (antes "Pizza on Mondays"): dashboard en Streamlit para explorar el comportamiento histórico de
 distintos sectores de mercado (Oil & Gas, Real Estate, Criptomonedas), armar fichas de
 empresas individuales a partir de fundamentals, y comparar un activo contra un benchmark
 con tearsheets de QuantStats. Datos en vivo vía `yfinance`, sin datasets estáticos.
